@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +15,9 @@ import com.messagesapp.posts.PostsViewModel
 import com.messagesapp.posts.adapters.CommentsListAdapter
 import com.messagesapp.posts.databinding.FragmentPostDetailBinding
 import com.messagesapp.posts.uistates.PostsUiState
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.qualifier.named
 
 const val USER_INFO_TAB = 1
 const val POST_COMMENTS_TAB = 2
@@ -24,7 +27,7 @@ class PlaceholderFragment : Fragment() {
     private lateinit var pageViewModel: PageViewModel
     private var _binding: FragmentPostDetailBinding? = null
 
-    private val postsViewModel: PostsViewModel by viewModel()
+    private  val postsViewModel: PostsViewModel by activityViewModels()
     private var commentsResultsListAdapter = CommentsListAdapter()
 
     private val binding get() = _binding!!
@@ -60,8 +63,7 @@ class PlaceholderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         searchResultsObserver()
         setUpRecyclerView()
-        postsViewModel.getPostDetail(1)
-        postsViewModel.getComments(1)
+
     }
 
     private fun setUpRecyclerView() {
@@ -80,6 +82,10 @@ class PlaceholderFragment : Fragment() {
         when (state) {
             is PostsUiState.PostDetail -> setSearchData(state.data)
             is PostsUiState.PostComments -> setPostComments(state.data)
+            is PostsUiState.PostId ->{
+                postsViewModel.getPostDetail(state.data)
+                postsViewModel.getComments(state.data)
+            }
             else -> {
                 println("sdasd")
             }

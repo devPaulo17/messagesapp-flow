@@ -16,14 +16,14 @@ class PostListViewHolder(
         false
     )
 ) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(post: Posts, onResultItemClick: (Int) -> Unit) {
+    fun bind(post: Posts, onResultItemClick: (Int,Boolean) -> Unit) {
         binding.apply {
             textViewPostTitle.text = post.title
             if (post.isFavorite) {
                 imageFavoriteStar.visibility = View.VISIBLE
             }
             containerItemPost.setOnClickListener {
-                onResultItemClick.invoke(post.id)
+                onResultItemClick.invoke(post.id,post.isFavorite)
             }
         }
     }

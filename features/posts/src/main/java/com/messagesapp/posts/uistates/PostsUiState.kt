@@ -9,6 +9,7 @@ sealed class PostsUiState{
     data class PostsList(val data: List<Posts>) : PostsUiState()
     data class PostDetail(val data: UserPost) : PostsUiState()
     data class PostComments(val data: List<Comments>) : PostsUiState()
+    data class PostId(val data: Int) : PostsUiState()
     object Error : PostsUiState()
     object ErrorConnection : PostsUiState()
 }

@@ -3,14 +3,12 @@ package com.messagesapp.posts
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.messagesapp.domain.entities.posts.Posts
 import com.messagesapp.posts.adapters.PostsListAdapter
 import com.messagesapp.posts.databinding.ActivityPostsBinding
 import com.messagesapp.posts.uistates.PostsUiState
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
 
 class PostsActivity : AppCompatActivity() {
 
@@ -18,8 +16,8 @@ class PostsActivity : AppCompatActivity() {
 
     private val postsViewModel: PostsViewModel by viewModel()
 
-    private val onResultItemClick: (Int) -> Unit = { postId ->
-        goToPostDetail(postId)
+    private val onResultItemClick: (Int,Boolean) -> Unit = { postId,isfavorito ->
+        goToPostDetail(postId,isfavorito)
     }
 
     private var searchResultsListAdapter = PostsListAdapter(onResultItemClick)
@@ -69,9 +67,10 @@ class PostsActivity : AppCompatActivity() {
         searchResultsListAdapter.notifyDataSetChanged()
     }
 
-    private fun goToPostDetail(postId: Int) {
+    private fun goToPostDetail(postId: Int, isfavorito: Boolean) {
         startActivity(Intent(this, PostDetailActivity::class.java).apply {
             putExtra("postId", postId)
+            putExtra("isFavorite", isfavorito)
         })
     }
 

@@ -29,6 +29,9 @@ class PostsViewModel(private val postsRepository: PostsRepository) : ViewModel()
         }
     }
 
+    fun setPostId(postId: Int) {
+        _viewState.value = PostsUiState.PostId(postId)
+    }
 
     fun getComments(postId: Int) {
         viewModelScope.launch {
@@ -69,15 +72,15 @@ class PostsViewModel(private val postsRepository: PostsRepository) : ViewModel()
         }
     }
 
-    fun addPostToFavorites() {
+    fun addPostToFavorites(postId: Int) {
         viewModelScope.launch {
-            postsRepository.addPostToFavorites(3)
+            postsRepository.addPostToFavorites(postId)
         }
     }
 
-    fun remotePostFromFavorites() {
+    fun deletePostFromFavorites(postId: Int) {
         viewModelScope.launch {
-            postsRepository.remotePostFromFavorites(2)
+            postsRepository.remotePostFromFavorites(postId)
         }
     }
 }
