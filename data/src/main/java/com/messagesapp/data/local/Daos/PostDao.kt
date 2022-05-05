@@ -4,10 +4,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.messagesapp.data.local.entities.Comments
-import com.messagesapp.data.local.entities.Posts
-import com.messagesapp.data.local.entities.Users
-import com.messagesapp.data.remote.entities.PostsApi
+import com.messagesapp.data.entities.CommentsApi
+import com.messagesapp.data.entities.PostsApi
+import com.messagesapp.data.entities.UsersApi
 import kotlinx.coroutines.flow.Flow
 
 
@@ -17,10 +16,10 @@ interface PostDao {
     fun savePosts(posts: List<PostsApi>)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun saveUsers(posts: List<Users>)
+    fun saveUsers(posts: List<UsersApi>)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun saveCommentsByPostId(posts: List<Comments>)
+    fun saveCommentsByPostId(posts: List<CommentsApi>)
 
     @Query("SELECT * FROM posts")
     fun getAllDogs(): Flow<List<PostsApi>>

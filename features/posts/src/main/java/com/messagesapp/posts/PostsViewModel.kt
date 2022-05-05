@@ -8,12 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.messagesapp.domain.HandleResult
 import com.messagesapp.domain.repositories.posts.PostsRepository
 import com.messagesapp.posts.uistates.PostsUiState
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 
 class PostsViewModel(private val postsRepository: PostsRepository) : ViewModel() {
@@ -34,9 +30,11 @@ class PostsViewModel(private val postsRepository: PostsRepository) : ViewModel()
     }
 
 
-    fun getPostDetail() {
+    fun getPostDetail(postId: Int) {
         viewModelScope.launch {
-            postsRepository.getPostDetail()
+            postsRepository.getPostDetail(postId).collectLatest {
+                val hola = 1
+            }
         }
     }
 }

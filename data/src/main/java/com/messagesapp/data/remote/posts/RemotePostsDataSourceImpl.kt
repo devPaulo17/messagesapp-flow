@@ -16,13 +16,13 @@ class RemotePostsDataSourceImpl( private val postsApiService: PostsApiService) :
         }
 
         return handleResultRetrofit(result) { results ->
-            results.toListResults()
+            results.toPostsList()
         }
     }
 
-    override suspend fun getPostDetail():HandleResult<List<Comments>> {
+    override suspend fun getPostDetail(postId: Int):HandleResult<List<Comments>> {
         val result = executeRetrofitRequest {
-            postsApiService.getComments()
+            postsApiService.getComments(postId)
         }
 
         return handleResultRetrofit(result) { results ->

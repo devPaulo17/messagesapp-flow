@@ -1,5 +1,4 @@
-package com.messagesapp.data.remote.posts
-
+package com.messagesapp.data.local
 
 import com.messagesapp.data.entities.CommentsApi
 import com.messagesapp.data.entities.PostsApi
@@ -8,20 +7,9 @@ import com.messagesapp.domain.entities.posts.Comments
 import com.messagesapp.domain.entities.posts.Posts
 import com.messagesapp.domain.entities.posts.Users
 
-fun List<PostsApi>.toPostsList(): List<Posts> {
+fun List<Comments>.toCommentsList(): List<CommentsApi> {
     return map { item ->
-        Posts(
-            userId = item.userId,
-            id = item.id,
-            title = item.title,
-            body = item.body
-        )
-    }
-}
-
-fun List<CommentsApi>.toCommentsList(): List<Comments> {
-    return map { item ->
-        Comments(
+        CommentsApi(
             postId = item.postId,
             id = item.id,
             name = item.name,
@@ -31,14 +19,26 @@ fun List<CommentsApi>.toCommentsList(): List<Comments> {
     }
 }
 
-fun List<UsersApi>.toUsersList(): List<Users> {
+fun List<Users>.toUsersList(): List<UsersApi> {
     return map { item ->
-        Users(
+        UsersApi(
             id = item.id,
             name = item.name,
             userName = item.userName,
             email = item.email,
             webSite = item.webSite
+        )
+    }
+}
+
+
+fun List<Posts>.toListResults(): List<PostsApi> {
+    return map { item ->
+        PostsApi(
+            userId = item.userId,
+            id = item.id,
+            title = item.title,
+            body = item.body
         )
     }
 }

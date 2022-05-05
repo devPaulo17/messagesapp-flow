@@ -62,7 +62,9 @@ class PostsActivity : AppCompatActivity() {
     }
 
     private fun goToPostDetail(postId: Int) {
-        startActivity(Intent(this, PostDetailActivity::class.java))
+        startActivity(Intent(this, PostDetailActivity::class.java).apply {
+            putExtra("postId", postId)
+        })
     }
 
 

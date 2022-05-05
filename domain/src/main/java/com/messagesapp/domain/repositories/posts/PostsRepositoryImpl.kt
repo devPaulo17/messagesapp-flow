@@ -5,7 +5,6 @@ import com.messagesapp.domain.entities.posts.Comments
 import com.messagesapp.domain.entities.posts.Posts
 import com.messagesapp.domain.entities.posts.Users
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -25,7 +24,7 @@ class PostsRepositoryImpl(
                     if (it.isNotEmpty()) {
                         emit(HandleResult.Success(it))
                     } else {
-                        //hola()
+                        hola()
                     }
 
         }
@@ -45,12 +44,10 @@ class PostsRepositoryImpl(
         }
     }
 
-    override suspend fun getPostDetail():Flow<String> = flow<String> {
-
-                emit("adasda")
-
-
-        
+    override suspend fun getPostDetail(postId: Int):Flow<String> = flow<String> {
+            val hola = remoteDataSource.getPostDetail(postId)
+        val aa =1
+            emit("asdasd")
 
     }.flowOn(Dispatchers.IO)
 

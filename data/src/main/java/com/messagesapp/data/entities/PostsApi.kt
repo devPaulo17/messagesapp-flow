@@ -1,4 +1,4 @@
-package com.messagesapp.data.remote.entities
+package com.messagesapp.data.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
