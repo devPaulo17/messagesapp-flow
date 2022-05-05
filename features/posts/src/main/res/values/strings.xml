@@ -1,5 +1,5 @@
 <resources>
-    <string name="title_activity_post_detail">PostDetailActivity</string>
+    <string name="title_activity_post_detail">Post Detail</string>
     <string name="tab_text_1">Information</string>
     <string name="tab_text_2">Comments</string>
 </resources>

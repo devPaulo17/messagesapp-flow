@@ -12,6 +12,7 @@ interface LocalPostsDataSource {
     suspend fun saveAllPost(posts: List<Posts>)
     suspend fun saveAllUsers(posts: List<Users>)
     suspend fun saveCommentsByPostId(posts: List<Comments>)
+    suspend fun getCommentsByPostId(posts: Int): Flow<List<Comments>>
     suspend fun getAllPosts(): Flow<List<Posts>>
     suspend fun getPostDetail(postId: Int): Flow<UserPost>
     suspend fun deleteAllPosts()

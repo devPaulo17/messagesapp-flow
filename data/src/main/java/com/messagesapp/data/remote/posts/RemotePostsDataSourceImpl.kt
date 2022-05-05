@@ -20,7 +20,7 @@ class RemotePostsDataSourceImpl( private val postsApiService: PostsApiService) :
         }
     }
 
-    override suspend fun getPostDetail(postId: Int):HandleResult<List<Comments>> {
+    override suspend fun getCommentsByPostId(postId: Int): HandleResult<List<Comments>> {
         val result = executeRetrofitRequest {
             postsApiService.getComments(postId)
         }
@@ -29,6 +29,7 @@ class RemotePostsDataSourceImpl( private val postsApiService: PostsApiService) :
             results.toCommentsList()
         }
     }
+
 
     override suspend fun getAllUsers(): HandleResult<List<Users>> {
         val result = executeRetrofitRequest {

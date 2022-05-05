@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.messagesapp.domain.entities.posts.Comments
 import com.messagesapp.domain.entities.posts.UserPost
 import com.messagesapp.posts.PostsViewModel
+import com.messagesapp.posts.adapters.CommentsListAdapter
 import com.messagesapp.posts.databinding.FragmentPostDetailBinding
 import com.messagesapp.posts.uistates.PostsUiState
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,6 +25,7 @@ class PlaceholderFragment : Fragment() {
     private var _binding: FragmentPostDetailBinding? = null
 
     private val postsViewModel: PostsViewModel by viewModel()
+    private var commentsResultsListAdapter = CommentsListAdapter()
 
     private val binding get() = _binding!!
 
@@ -40,22 +44,32 @@ class PlaceholderFragment : Fragment() {
         _binding = FragmentPostDetailBinding.inflate(inflater, container, false)
         val root = binding.root
 
-         pageViewModel.fragmentId.observe(viewLifecycleOwner, Observer {
-            if(it == USER_INFO_TAB){
+        pageViewModel.fragmentId.observe(viewLifecycleOwner, Observer {
+            if (it == USER_INFO_TAB) {
                 binding.constraintUserData.visibility = View.VISIBLE
                 binding.recyclerPostComments.visibility = View.GONE
-            }else{
+            } else {
                 binding.constraintUserData.visibility = View.GONE
                 binding.recyclerPostComments.visibility = View.VISIBLE
             }
-         })
+        })
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         searchResultsObserver()
+        setUpRecyclerView()
         postsViewModel.getPostDetail(1)
+        postsViewModel.getComments(1)
+    }
+
+    private fun setUpRecyclerView() {
+        binding.recyclerPostComments.apply {
+            adapter = commentsResultsListAdapter
+            itemAnimator = null
+            layoutManager = LinearLayoutManager(context)
+        }
     }
 
     private fun searchResultsObserver() {
@@ -65,6 +79,7 @@ class PlaceholderFragment : Fragment() {
     private fun handleUiState(state: PostsUiState) {
         when (state) {
             is PostsUiState.PostDetail -> setSearchData(state.data)
+            is PostsUiState.PostComments -> setPostComments(state.data)
             else -> {
                 println("sdasd")
             }
@@ -80,6 +95,11 @@ class PlaceholderFragment : Fragment() {
             textViewUserNickname.text = data.userNickName
             textViewUserWebsite.text = data.userWebSite
         }
+    }
+
+    private fun setPostComments(data: List<Comments>) {
+        commentsResultsListAdapter.setCommentsList(data)
+        commentsResultsListAdapter.notifyDataSetChanged()
     }
 
 

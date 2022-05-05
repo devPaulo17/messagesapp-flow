@@ -50,6 +50,23 @@ class PostsRepositoryImpl(
         }
     }.flowOn(Dispatchers.IO)
 
+    override suspend fun getComments(postId: Int): Flow<HandleResult<List<Comments>>> = flow {
+        localDataSource.getCommentsByPostId(postId).collect {
+            if (it.isNotEmpty()) {
+                emit(HandleResult.Success(it))
+            } else {
+                hola1(postId)
+            }
+        }
+    }.flowOn(Dispatchers.IO)
+
+    private suspend fun hola1(postId: Int) {
+        withContext(Dispatchers.IO) {
+            val result = remoteDataSource.getCommentsByPostId(postId)
+            localDataSource.saveCommentsByPostId(validateResponse(result) as List<Comments>)
+        }
+    }
+
 
     override suspend fun deleteAllPosts() {
         withContext(Dispatchers.IO) {

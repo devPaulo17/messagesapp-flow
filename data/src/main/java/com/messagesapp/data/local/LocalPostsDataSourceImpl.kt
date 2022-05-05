@@ -1,6 +1,7 @@
 package com.messagesapp.data.local
 
 import com.messagesapp.data.local.Daos.PostDao
+import com.messagesapp.data.remote.posts.toCommentsList
 import com.messagesapp.data.remote.posts.toPostsList
 import com.messagesapp.data.remote.posts.toUserPostsData
 import com.messagesapp.domain.entities.posts.Comments
@@ -22,6 +23,12 @@ class LocalPostsDataSourceImpl(private val postDao: PostDao) : LocalPostsDataSou
 
     override suspend fun saveCommentsByPostId(comments: List<Comments>) {
         postDao.saveCommentsByPostId(comments.toCommentsList())
+    }
+
+    override suspend fun getCommentsByPostId(comments: Int):Flow<List<Comments>> {
+       return postDao.getCommentsByPostId(comments).map {
+           it.toCommentsList()
+       }
     }
 
     override suspend fun getAllPosts(): Flow<List<Posts>> = postDao.getAllDogs().map {

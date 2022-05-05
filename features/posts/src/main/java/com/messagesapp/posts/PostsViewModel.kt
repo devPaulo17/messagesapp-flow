@@ -30,6 +30,18 @@ class PostsViewModel(private val postsRepository: PostsRepository) : ViewModel()
     }
 
 
+    fun getComments(postId: Int) {
+        viewModelScope.launch {
+            postsRepository.getComments(postId).collectLatest {
+                when (it) {
+                    is HandleResult.Success -> {
+                        _viewState.value = PostsUiState.PostComments(it.data)
+                    }
+                }
+            }
+        }
+    }
+
     fun getPostDetail(postId: Int) {
         viewModelScope.launch {
             postsRepository.getPostDetail(postId).collectLatest {
@@ -41,6 +53,7 @@ class PostsViewModel(private val postsRepository: PostsRepository) : ViewModel()
             }
         }
     }
+
 
     fun deleteAllPosts() {
         viewModelScope.launch {

@@ -8,6 +8,6 @@ import com.messagesapp.domain.entities.posts.Users
 
 interface RemotePostsDataSource {
     suspend fun getAllPosts(): HandleResult<List<Posts>>
-    suspend fun getPostDetail(postId: Int):HandleResult<List<Comments>>
+    suspend fun getCommentsByPostId(postId: Int): HandleResult<List<Comments>>
     suspend fun getAllUsers():HandleResult<List<Users>>
 }

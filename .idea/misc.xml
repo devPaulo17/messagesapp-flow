@@ -7,6 +7,7 @@
         <entry key="features/posts/src/main/res/layout/activity_post_detail.xml" value="0.1651469098277609" />
         <entry key="features/posts/src/main/res/layout/activity_posts.xml" value="0.1" />
         <entry key="features/posts/src/main/res/layout/fragment_post_detail.xml" value="0.33" />
+        <entry key="features/posts/src/main/res/layout/item_comment.xml" value="0.22" />
         <entry key="features/posts/src/main/res/layout/item_post.xml" value="0.33" />
         <entry key="features/posts/src/main/res/layout/item_posts.xml" value="0.14814814814814814" />
       </map>

@@ -22,6 +22,9 @@ interface PostDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun saveCommentsByPostId(posts: List<CommentsApi>)
 
+    @Query("SELECT * FROM comments WHERE post_id = :postId")
+    fun getCommentsByPostId(postId: Int):Flow<List<CommentsApi>>
+
     @Query("SELECT * FROM posts  ORDER BY is_favorite DESC")
     fun getAllDogs(): Flow<List<PostsApi>>
 
