@@ -3,12 +3,14 @@ package com.messagesapp.posts
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.messagesapp.domain.entities.posts.Posts
 import com.messagesapp.posts.adapters.PostsListAdapter
 import com.messagesapp.posts.databinding.ActivityPostsBinding
 import com.messagesapp.posts.uistates.PostsUiState
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 class PostsActivity : AppCompatActivity() {
 
@@ -29,7 +31,6 @@ class PostsActivity : AppCompatActivity() {
         searchResultsObserver()
         setUpRecyclerView()
         postsViewModel.getAllPosts()
-
 
     }
 

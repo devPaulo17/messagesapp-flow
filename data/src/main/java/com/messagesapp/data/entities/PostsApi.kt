@@ -11,5 +11,6 @@ data class PostsApi(
     @ColumnInfo(name = "user_id") val userId: Int,
     @PrimaryKey val id: Int,
     @ColumnInfo(name = "title") val title: String,
-    @ColumnInfo(name = "boddy") val body: String
+    @ColumnInfo(name = "boddy") val body: String,
+    @ColumnInfo(name = "is_favorite") val isFavorite: Boolean = false
 )

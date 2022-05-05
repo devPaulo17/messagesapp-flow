@@ -17,5 +17,6 @@ class PostDetailActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         postsViewModel.getPostDetail(intent.getIntExtra("postId", 0))
+        postsViewModel.addPostToFavorites()
     }
 }

@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PostDao {
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun savePosts(posts: List<PostsApi>)
 
@@ -21,7 +22,7 @@ interface PostDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun saveCommentsByPostId(posts: List<CommentsApi>)
 
-    @Query("SELECT * FROM posts")
+    @Query("SELECT * FROM posts  ORDER BY is_favorite DESC")
     fun getAllDogs(): Flow<List<PostsApi>>
 
     @Query(
@@ -30,6 +31,18 @@ interface PostDao {
                 "WHERE users.id = posts.user_id"
     )
     fun getPostDetailById(): Flow<UserBook>
+
+    @Query("DELETE FROM posts")
+    fun deleteAllPosts()
+
+    @Query("DELETE FROM posts WHERE id = :postId")
+    fun deletePostById(postId: Int)
+
+    @Query("UPDATE posts SET is_favorite = 1 WHERE id = :postId")
+    fun addPostToFavorites(postId: Int)
+
+    @Query("UPDATE posts SET is_favorite = 0 WHERE id = :postId")
+    fun remotePostFromFavorites(postId: Int)
 
 }
 

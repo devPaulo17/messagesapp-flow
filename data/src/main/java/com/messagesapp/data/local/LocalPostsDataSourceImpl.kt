@@ -1,9 +1,6 @@
 package com.messagesapp.data.local
 
 import com.messagesapp.data.local.Daos.PostDao
-import com.messagesapp.data.entities.CommentsApi
-import com.messagesapp.data.entities.PostsApi
-import com.messagesapp.data.entities.UsersApi
 import com.messagesapp.data.remote.posts.toPostsList
 import com.messagesapp.domain.entities.posts.Comments
 import com.messagesapp.domain.entities.posts.Posts
@@ -27,5 +24,21 @@ class LocalPostsDataSourceImpl(private val postDao: PostDao) : LocalPostsDataSou
 
     override suspend fun getAllPosts(): Flow<List<Posts>> = postDao.getAllDogs().map {
         it.toPostsList()
+    }
+
+    override suspend fun deleteAllPosts() {
+        postDao.deleteAllPosts()
+    }
+
+    override suspend fun deletePostById(postId: Int) {
+        postDao.deletePostById(postId)
+    }
+
+    override suspend fun addPostToFavorites(postId: Int) {
+        postDao.addPostToFavorites(postId)
+    }
+
+    override suspend fun remotePostFromFavorites(postId: Int) {
+        postDao.remotePostFromFavorites(postId)
     }
 }

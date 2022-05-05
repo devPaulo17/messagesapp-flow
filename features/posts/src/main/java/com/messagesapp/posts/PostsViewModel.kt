@@ -37,4 +37,30 @@ class PostsViewModel(private val postsRepository: PostsRepository) : ViewModel()
             }
         }
     }
+
+    fun deleteAllPosts() {
+        viewModelScope.launch {
+            postsRepository.deleteAllPosts()
+
+
+        }
+    }
+
+    fun deletePostById() {
+        viewModelScope.launch {
+            postsRepository.deletePostById(1)
+        }
+    }
+
+    fun addPostToFavorites() {
+        viewModelScope.launch {
+            postsRepository.addPostToFavorites(3)
+        }
+    }
+
+    fun remotePostFromFavorites() {
+        viewModelScope.launch {
+            postsRepository.remotePostFromFavorites(2)
+        }
+    }
 }

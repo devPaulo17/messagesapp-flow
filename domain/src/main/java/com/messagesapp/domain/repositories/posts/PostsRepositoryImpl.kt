@@ -51,6 +51,30 @@ class PostsRepositoryImpl(
 
     }.flowOn(Dispatchers.IO)
 
+    override suspend fun deleteAllPosts(){
+        withContext(Dispatchers.IO) {
+            localDataSource.deleteAllPosts()
+        }
+    }
+
+    override suspend fun deletePostById(postId: Int){
+        withContext(Dispatchers.IO) {
+            localDataSource.deletePostById(postId)
+        }
+    }
+
+    override suspend fun addPostToFavorites(postId: Int) {
+       withContext(Dispatchers.IO){
+           localDataSource.addPostToFavorites(postId)
+       }
+    }
+
+    override suspend fun remotePostFromFavorites(postId: Int){
+        withContext(Dispatchers.IO){
+            localDataSource.remotePostFromFavorites(postId)
+        }
+    }
+
     private suspend fun saveUsersData(data: List<Any>) {
         localDataSource.saveAllUsers(data as List<Users>)
     }
