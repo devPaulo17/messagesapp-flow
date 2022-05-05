@@ -66,9 +66,9 @@ class PostsViewModel(private val postsRepository: PostsRepository) : ViewModel()
         }
     }
 
-    fun deletePostById() {
+    fun deletePostById(postId: Int) {
         viewModelScope.launch {
-            postsRepository.deletePostById(1)
+            postsRepository.deletePostById(postId)
         }
     }
 
