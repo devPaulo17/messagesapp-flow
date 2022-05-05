@@ -2,8 +2,10 @@ package com.messagesapp.data.local
 
 import com.messagesapp.data.local.Daos.PostDao
 import com.messagesapp.data.remote.posts.toPostsList
+import com.messagesapp.data.remote.posts.toUserPostsData
 import com.messagesapp.domain.entities.posts.Comments
 import com.messagesapp.domain.entities.posts.Posts
+import com.messagesapp.domain.entities.posts.UserPost
 import com.messagesapp.domain.entities.posts.Users
 import com.messagesapp.domain.repositories.posts.LocalPostsDataSource
 import kotlinx.coroutines.flow.Flow
@@ -24,6 +26,12 @@ class LocalPostsDataSourceImpl(private val postDao: PostDao) : LocalPostsDataSou
 
     override suspend fun getAllPosts(): Flow<List<Posts>> = postDao.getAllDogs().map {
         it.toPostsList()
+    }
+
+    override suspend fun getPostDetail(postId: Int): Flow<UserPost> {
+        return postDao.getPostDetailById().map {
+            it.toUserPostsData()
+        }
     }
 
     override suspend fun deleteAllPosts() {

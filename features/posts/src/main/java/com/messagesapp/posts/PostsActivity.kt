@@ -31,8 +31,15 @@ class PostsActivity : AppCompatActivity() {
         searchResultsObserver()
         setUpRecyclerView()
         postsViewModel.getAllPosts()
+        setUpToolbar()
 
     }
+
+    private fun setUpToolbar() {
+        setSupportActionBar(binding?.toolbar)
+        supportActionBar?.title = "Posts"
+    }
+
 
     private fun searchResultsObserver() {
         postsViewModel.viewState.observe(this, ::handleUiState)

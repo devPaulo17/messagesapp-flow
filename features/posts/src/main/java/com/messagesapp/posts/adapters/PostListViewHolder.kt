@@ -1,6 +1,7 @@
 package com.messagesapp.posts.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.messagesapp.domain.entities.posts.Posts
@@ -17,7 +18,10 @@ class PostListViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(post: Posts, onResultItemClick: (Int) -> Unit) {
         binding.apply {
-            textViewTitle.text = post.title
+            textViewPostTitle.text = post.title
+            if (post.isFavorite) {
+                imageFavoriteStar.visibility = View.VISIBLE
+            }
             containerItemPost.setOnClickListener {
                 onResultItemClick.invoke(post.id)
             }

@@ -33,7 +33,11 @@ class PostsViewModel(private val postsRepository: PostsRepository) : ViewModel()
     fun getPostDetail(postId: Int) {
         viewModelScope.launch {
             postsRepository.getPostDetail(postId).collectLatest {
-                val hola = 1
+                when (it) {
+                    is HandleResult.Success -> {
+                        _viewState.value = PostsUiState.PostDetail(it.data)
+                    }
+                }
             }
         }
     }

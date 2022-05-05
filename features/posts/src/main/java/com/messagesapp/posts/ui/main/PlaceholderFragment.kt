@@ -4,28 +4,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.messagesapp.posts.R
+import com.messagesapp.domain.entities.posts.UserPost
+import com.messagesapp.posts.PostsViewModel
 import com.messagesapp.posts.databinding.FragmentPostDetailBinding
+import com.messagesapp.posts.uistates.PostsUiState
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-/**
- * A placeholder fragment containing a simple view.
- */
+const val USER_INFO_TAB = 1
+const val POST_COMMENTS_TAB = 2
+
 class PlaceholderFragment : Fragment() {
 
     private lateinit var pageViewModel: PageViewModel
     private var _binding: FragmentPostDetailBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private val postsViewModel: PostsViewModel by viewModel()
+
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
+        pageViewModel = ViewModelProvider(this)[PageViewModel::class.java].apply {
             setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
         }
     }
@@ -38,12 +40,48 @@ class PlaceholderFragment : Fragment() {
         _binding = FragmentPostDetailBinding.inflate(inflater, container, false)
         val root = binding.root
 
-        val textView: TextView = binding.sectionLabel
-        pageViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+         pageViewModel.fragmentId.observe(viewLifecycleOwner, Observer {
+            if(it == USER_INFO_TAB){
+                binding.constraintUserData.visibility = View.VISIBLE
+                binding.recyclerPostComments.visibility = View.GONE
+            }else{
+                binding.constraintUserData.visibility = View.GONE
+                binding.recyclerPostComments.visibility = View.VISIBLE
+            }
+         })
         return root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        searchResultsObserver()
+        postsViewModel.getPostDetail(1)
+    }
+
+    private fun searchResultsObserver() {
+        postsViewModel.viewState.observe(viewLifecycleOwner, ::handleUiState)
+    }
+
+    private fun handleUiState(state: PostsUiState) {
+        when (state) {
+            is PostsUiState.PostDetail -> setSearchData(state.data)
+            else -> {
+                println("sdasd")
+            }
+        }
+    }
+
+
+    private fun setSearchData(data: UserPost) {
+        binding.apply {
+            textViewPostDescription.text = data.postBoddy
+            textViewUserName.text = data.userName
+            textViewUserEmail.text = data.userEmail
+            textViewUserNickname.text = data.userNickName
+            textViewUserWebsite.text = data.userWebSite
+        }
+    }
+
 
     companion object {
         /**

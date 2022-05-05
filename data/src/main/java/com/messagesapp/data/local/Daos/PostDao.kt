@@ -26,11 +26,11 @@ interface PostDao {
     fun getAllDogs(): Flow<List<PostsApi>>
 
     @Query(
-        "SELECT users.name AS userName, posts.title AS bookName " +
+        "SELECT users.name AS userName, users.email AS userEmail, users.user_name AS userNickName,users.web_site AS userWebSite, posts.boddy AS postBoddy " +
                 "FROM users, posts " +
                 "WHERE users.id = posts.user_id"
     )
-    fun getPostDetailById(): Flow<UserBook>
+    fun getPostDetailById(): Flow<UserPost>
 
     @Query("DELETE FROM posts")
     fun deleteAllPosts()
@@ -46,4 +46,10 @@ interface PostDao {
 
 }
 
-data class UserBook(val userName: String?, val bookName: String?)
+data class UserPost(
+    val userName: String?,
+    val userEmail: String,
+    val userNickName: String,
+    val userWebSite: String,
+    val postBoddy: String?
+)
