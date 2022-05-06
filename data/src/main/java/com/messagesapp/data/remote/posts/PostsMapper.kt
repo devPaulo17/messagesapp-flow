@@ -3,8 +3,8 @@ package com.messagesapp.data.remote.posts
 
 import com.messagesapp.data.entities.CommentsApi
 import com.messagesapp.data.entities.PostsApi
+import com.messagesapp.data.entities.UserPost
 import com.messagesapp.data.entities.UsersApi
-import com.messagesapp.data.local.Daos.UserPost
 import com.messagesapp.domain.entities.posts.Comments
 import com.messagesapp.domain.entities.posts.Posts
 import com.messagesapp.domain.entities.posts.Users

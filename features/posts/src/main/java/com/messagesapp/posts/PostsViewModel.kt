@@ -1,6 +1,5 @@
 package com.messagesapp.posts
 
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +9,6 @@ import com.messagesapp.domain.repositories.posts.PostsRepository
 import com.messagesapp.posts.uistates.PostsUiState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-
 
 class PostsViewModel(private val postsRepository: PostsRepository) : ViewModel() {
 
@@ -29,17 +27,17 @@ class PostsViewModel(private val postsRepository: PostsRepository) : ViewModel()
         }
     }
 
-    fun setPostId(postId: HashMap<String, Int>) {
-        _viewState.value = PostsUiState.PostId(postId)
+    fun setIdsPostAndUser(ids: HashMap<String, Int>) {
+        _viewState.value = PostsUiState.Ids(ids)
     }
 
     fun getComments(postId: Int) {
         viewModelScope.launch {
+            _viewState.value = PostsUiState.Loading
             postsRepository.getComments(postId).collectLatest {
                 when (it) {
-                    is HandleResult.Success -> {
-                        _viewState.value = PostsUiState.PostComments(it.data)
-                    }
+                    is HandleResult.Success -> _viewState.value = PostsUiState.PostComments(it.data)
+                    is HandleResult.Error-> _viewState.value = PostsUiState.Error
                 }
             }
         }
@@ -47,16 +45,15 @@ class PostsViewModel(private val postsRepository: PostsRepository) : ViewModel()
 
     fun getPostDetail(postId: Int) {
         viewModelScope.launch {
+            _viewState.value = PostsUiState.Loading
             postsRepository.getPostDetail(postId).collectLatest {
                 when (it) {
-                    is HandleResult.Success -> {
-                        _viewState.value = PostsUiState.PostDetail(it.data)
-                    }
+                    is HandleResult.Success -> _viewState.value = PostsUiState.PostDetail(it.data)
+                    is HandleResult.Error-> _viewState.value = PostsUiState.Error
                 }
             }
         }
     }
-
 
     fun deleteAllPosts(needUpdate: Boolean) {
         viewModelScope.launch {

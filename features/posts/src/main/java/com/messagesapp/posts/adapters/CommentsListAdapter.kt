@@ -14,7 +14,6 @@ class CommentsListAdapter : RecyclerView.Adapter<CommentsListViewHolder>() {
         commentList = value
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentsListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return CommentsListViewHolder(layoutInflater, parent)

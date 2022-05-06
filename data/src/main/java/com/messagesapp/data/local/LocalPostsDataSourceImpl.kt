@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class LocalPostsDataSourceImpl(private val postDao: PostDao) : LocalPostsDataSource {
+
     override suspend fun saveAllPost(posts: List<Posts>) {
         postDao.savePosts(posts.toListResults())
     }
@@ -31,7 +32,7 @@ class LocalPostsDataSourceImpl(private val postDao: PostDao) : LocalPostsDataSou
        }
     }
 
-    override suspend fun getAllPosts(): Flow<List<Posts>> = postDao.getAllDogs().map {
+    override suspend fun getAllPosts(): Flow<List<Posts>> = postDao.getAllPosts().map {
         it.toPostsList()
     }
 
@@ -54,6 +55,6 @@ class LocalPostsDataSourceImpl(private val postDao: PostDao) : LocalPostsDataSou
     }
 
     override suspend fun remotePostFromFavorites(postId: Int) {
-        postDao.remotePostFromFavorites(postId)
+        postDao.removePostFromFavorites(postId)
     }
 }

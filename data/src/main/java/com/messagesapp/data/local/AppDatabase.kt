@@ -8,7 +8,11 @@ import com.messagesapp.data.entities.PostsApi
 import com.messagesapp.data.entities.UsersApi
 
 
-@Database(entities = [PostsApi::class,UsersApi::class, CommentsApi::class], version = 1, exportSchema = false)
+@Database(
+    entities = [PostsApi::class, UsersApi::class, CommentsApi::class],
+    version = 1,
+    exportSchema = false
+)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun postsDao(): PostDao
 }

@@ -10,10 +10,11 @@ import com.messagesapp.domain.repositories.posts.RemotePostsDataSource
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
+const val URL_API = "https://jsonplaceholder.typicode.com/"
 
 val networkModule = module {
 
@@ -41,7 +42,7 @@ val networkModule = module {
 }
 
 fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-    return Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/").client(okHttpClient)
+    return Retrofit.Builder().baseUrl(URL_API).client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create()).build()
 }
 

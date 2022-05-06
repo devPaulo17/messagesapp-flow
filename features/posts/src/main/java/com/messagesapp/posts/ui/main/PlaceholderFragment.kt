@@ -1,12 +1,13 @@
 package com.messagesapp.posts.ui.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.messagesapp.domain.entities.posts.Comments
@@ -15,22 +16,16 @@ import com.messagesapp.posts.PostsViewModel
 import com.messagesapp.posts.adapters.CommentsListAdapter
 import com.messagesapp.posts.databinding.FragmentPostDetailBinding
 import com.messagesapp.posts.uistates.PostsUiState
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.qualifier.named
 
 const val USER_INFO_TAB = 1
-const val POST_COMMENTS_TAB = 2
 
 class PlaceholderFragment : Fragment() {
 
+    private val binding get() = _binding!!
+    private val postsViewModel: PostsViewModel by activityViewModels()
     private lateinit var pageViewModel: PageViewModel
     private var _binding: FragmentPostDetailBinding? = null
-
-    private  val postsViewModel: PostsViewModel by activityViewModels()
     private var commentsResultsListAdapter = CommentsListAdapter()
-
-    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,15 +42,10 @@ class PlaceholderFragment : Fragment() {
         _binding = FragmentPostDetailBinding.inflate(inflater, container, false)
         val root = binding.root
 
-        pageViewModel.fragmentId.observe(viewLifecycleOwner, Observer {
-            if (it == USER_INFO_TAB) {
-                binding.constraintUserData.visibility = View.VISIBLE
-                binding.recyclerPostComments.visibility = View.GONE
-            } else {
-                binding.constraintUserData.visibility = View.GONE
-                binding.recyclerPostComments.visibility = View.VISIBLE
-            }
-        })
+        pageViewModel.fragmentId.observe(viewLifecycleOwner) { tabId ->
+            setInfoTab(tabId)
+        }
+
         return root
     }
 
@@ -63,6 +53,16 @@ class PlaceholderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         searchResultsObserver()
         setUpRecyclerView()
+    }
+
+    private fun setInfoTab(tabId: Int) {
+        if (tabId == USER_INFO_TAB) {
+            binding.constraintUserData.visibility = View.VISIBLE
+            binding.recyclerPostComments.visibility = View.GONE
+        } else {
+            binding.constraintUserData.visibility = View.GONE
+            binding.recyclerPostComments.visibility = View.VISIBLE
+        }
     }
 
     private fun setUpRecyclerView() {
@@ -81,16 +81,15 @@ class PlaceholderFragment : Fragment() {
         when (state) {
             is PostsUiState.PostDetail -> setSearchData(state.data)
             is PostsUiState.PostComments -> setPostComments(state.data)
-            is PostsUiState.PostId ->{
+            is PostsUiState.Ids -> {
                 postsViewModel.getPostDetail(state.data["userId"]!!)
                 postsViewModel.getComments(state.data["postId"]!!)
             }
             else -> {
-                println("sdasd")
+                Toast.makeText(context,"Hubo un error",Toast.LENGTH_SHORT).show()
             }
         }
     }
-
 
     private fun setSearchData(data: UserPost) {
         binding.apply {
@@ -102,23 +101,14 @@ class PlaceholderFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setPostComments(data: List<Comments>) {
         commentsResultsListAdapter.setCommentsList(data)
         commentsResultsListAdapter.notifyDataSetChanged()
     }
 
-
     companion object {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
         private const val ARG_SECTION_NUMBER = "section_number"
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
         @JvmStatic
         fun newInstance(sectionNumber: Int): PlaceholderFragment {
             return PlaceholderFragment().apply {

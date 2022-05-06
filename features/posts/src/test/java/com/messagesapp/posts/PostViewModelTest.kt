@@ -21,7 +21,6 @@ import kotlin.test.assertTrue
 
 class PostViewModelTest {
 
-
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
 
@@ -35,11 +34,12 @@ class PostViewModelTest {
     private val comments: List<Comments> =
         listOf(Comments(1, 1, "Some Random Email", "test@gmail.com", "asdasds"))
 
-    private val postDetailData: UserPost = UserPost("Paulo", "test@gmail.com", "Some Random Email", "dasdasd", "asdasds")
+    private val postDetailData: UserPost =
+        UserPost("Paulo", "test@gmail.com", "Some Random Email", "dasdasd", "asdasds")
 
 
     private val mockResultsRepository = mock<PostsRepository> {
-        onBlocking { getAllPosts(needUpdate) } doReturn flow { emit(HandleResult.Success(posts)) }
+        onBlocking { getAllPosts(false) } doReturn flow { emit(HandleResult.Success(posts)) }
         onBlocking { getComments(1) } doReturn flow { emit(HandleResult.Success(comments)) }
         onBlocking { getPostDetail(1) } doReturn flow { emit(HandleResult.Success(postDetailData)) }
     }

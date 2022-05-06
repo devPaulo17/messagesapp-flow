@@ -10,6 +10,7 @@ import com.messagesapp.domain.entities.posts.Users
 import com.messagesapp.domain.repositories.posts.RemotePostsDataSource
 
 class RemotePostsDataSourceImpl( private val postsApiService: PostsApiService) : RemotePostsDataSource{
+
     override suspend fun getAllPosts(): HandleResult<List<Posts>> {
         val result = executeRetrofitRequest {
             postsApiService.getAllPosts()
@@ -29,7 +30,6 @@ class RemotePostsDataSourceImpl( private val postsApiService: PostsApiService) :
             results.toCommentsList()
         }
     }
-
 
     override suspend fun getAllUsers(): HandleResult<List<Users>> {
         val result = executeRetrofitRequest {

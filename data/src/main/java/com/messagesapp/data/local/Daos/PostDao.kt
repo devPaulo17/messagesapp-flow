@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.messagesapp.data.entities.CommentsApi
 import com.messagesapp.data.entities.PostsApi
+import com.messagesapp.data.entities.UserPost
 import com.messagesapp.data.entities.UsersApi
 import kotlinx.coroutines.flow.Flow
 
@@ -23,10 +24,10 @@ interface PostDao {
     fun saveCommentsByPostId(posts: List<CommentsApi>)
 
     @Query("SELECT * FROM comments WHERE post_id = :postId")
-    fun getCommentsByPostId(postId: Int):Flow<List<CommentsApi>>
+    fun getCommentsByPostId(postId: Int): Flow<List<CommentsApi>>
 
     @Query("SELECT * FROM posts  ORDER BY is_favorite DESC")
-    fun getAllDogs(): Flow<List<PostsApi>>
+    fun getAllPosts(): Flow<List<PostsApi>>
 
     @Query(
         "SELECT users.name AS userName, users.email AS userEmail, users.user_name AS userNickName,users.web_site AS userWebSite, posts.boddy AS postBoddy " +
@@ -45,14 +46,7 @@ interface PostDao {
     fun addPostToFavorites(postId: Int)
 
     @Query("UPDATE posts SET is_favorite = 0 WHERE id = :postId")
-    fun remotePostFromFavorites(postId: Int)
+    fun removePostFromFavorites(postId: Int)
 
 }
 
-data class UserPost(
-    val userName: String?,
-    val userEmail: String,
-    val userNickName: String,
-    val userWebSite: String,
-    val postBoddy: String?
-)

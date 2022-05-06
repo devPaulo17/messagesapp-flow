@@ -1,11 +1,13 @@
 package com.messagesapp.posts
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.messagesapp.domain.entities.posts.Posts
 import com.messagesapp.posts.adapters.PostsListAdapter
@@ -15,32 +17,28 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PostsActivity : AppCompatActivity() {
 
-    private var binding: ActivityPostsBinding? = null
-
     private val postsViewModel: PostsViewModel by viewModel()
-
-    private val onResultItemClick: (Int, Boolean,Int) -> Unit = { postId, isfavorito, userId ->
-        goToPostDetail(postId, isfavorito,userId)
+    private val onResultItemClick: (Int, Boolean, Int) -> Unit = { postId, isfavorite, userId ->
+        goToPostDetail(postId, isfavorite, userId)
     }
-
+    private var binding: ActivityPostsBinding? = null
     private var searchResultsListAdapter = PostsListAdapter(onResultItemClick)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPostsBinding.inflate(layoutInflater)
         setContentView(binding?.root)
+
+        setUpToolbar()
         searchResultsObserver()
         setUpRecyclerView()
         postsViewModel.getAllPosts()
-        setUpToolbar()
-
     }
 
     private fun setUpToolbar() {
         setSupportActionBar(binding?.toolbar)
         supportActionBar?.title = "Posts"
     }
-
 
     private fun searchResultsObserver() {
         postsViewModel.viewState.observe(this, ::handleUiState)
@@ -52,7 +50,7 @@ class PostsActivity : AppCompatActivity() {
             is PostsUiState.Error -> showEmptyState()
             is PostsUiState.Loading -> showLoadingState()
             else -> {
-                println("sdasd")
+                Toast.makeText(this, "Hubo un error", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -82,6 +80,7 @@ class PostsActivity : AppCompatActivity() {
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setSearchData(data: List<Posts>) {
         binding?.apply {
             recylerViewPosts.visibility = View.VISIBLE
@@ -93,10 +92,10 @@ class PostsActivity : AppCompatActivity() {
         searchResultsListAdapter.notifyDataSetChanged()
     }
 
-    private fun goToPostDetail(postId: Int, isfavorito: Boolean, userId: Int) {
+    private fun goToPostDetail(postId: Int, isfavorite: Boolean, userId: Int) {
         startActivity(Intent(this, PostDetailActivity::class.java).apply {
             putExtra("postId", postId)
-            putExtra("isFavorite", isfavorito)
+            putExtra("isFavorite", isfavorite)
             putExtra("userId", userId)
         })
     }
@@ -111,11 +110,9 @@ class PostsActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.refresh -> postsViewModel.getAllPosts(true)
             R.id.deleteAll -> postsViewModel.deleteAllPosts(true)
-
         }
         return super.onOptionsItemSelected(item)
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

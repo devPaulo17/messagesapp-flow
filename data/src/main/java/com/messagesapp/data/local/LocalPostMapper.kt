@@ -31,7 +31,6 @@ fun List<Users>.toUsersList(): List<UsersApi> {
     }
 }
 
-
 fun List<Posts>.toListResults(): List<PostsApi> {
     return map { item ->
         PostsApi(

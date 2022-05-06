@@ -4,9 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.messagesapp.domain.entities.posts.Comments
-import com.messagesapp.domain.entities.posts.Posts
 import com.messagesapp.posts.databinding.ItemCommentBinding
-import com.messagesapp.posts.databinding.ItemPostBinding
 
 class CommentsListViewHolder(
     private val layoutInflater: LayoutInflater,
@@ -15,13 +13,13 @@ class CommentsListViewHolder(
         layoutInflater,
         parent,
         false
-    ) ): RecyclerView.ViewHolder(binding.root) {
+    )
+) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(post: Comments) {
         binding.apply {
             textViewCommentBody.text = post.body
             textViewUserEmailComment.text = post.email
         }
-
     }
 }

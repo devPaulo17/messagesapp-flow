@@ -16,27 +16,38 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PostDetailActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityPostDetailBinding
     private val postsViewModel: PostsViewModel by viewModel()
+    private lateinit var binding: ActivityPostDetailBinding
     private lateinit var fab: FloatingActionButton
     private lateinit var fab2: FloatingActionButton
     private var postId = 0
+    private var userId = 0
+    private var isFavorite = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityPostDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         setUpToolbar()
         setPagerAdapter()
+        getIntentExtras()
+        setIdsPostAndUser()
+        setActionButtonFab()
+    }
+
+    private fun getIntentExtras() {
         postId = intent.getIntExtra("postId", 0)
-        val isFavorite = intent.getBooleanExtra("isFavorite", false)
-        val userId = intent.getIntExtra("userId", 0)
+        isFavorite = intent.getBooleanExtra("isFavorite", false)
+        userId = intent.getIntExtra("userId", 0)
+    }
 
+    private fun setIdsPostAndUser() {
         val hashMap = hashMapOf("userId" to userId, "postId" to postId)
+        postsViewModel.setIdsPostAndUser(hashMap)
+    }
 
-        postsViewModel.setPostId(hashMap)
-
+    private fun setActionButtonFab() {
         fab = binding.fab
         fab2 = binding.fab2
 
@@ -68,7 +79,6 @@ class PostDetailActivity : AppCompatActivity() {
             fab.visibility = View.VISIBLE
             Snackbar.make(view, "Post removed from favorites", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
-
             removeFromFavorites(postId)
         }
     }

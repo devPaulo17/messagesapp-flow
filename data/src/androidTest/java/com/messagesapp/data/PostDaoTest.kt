@@ -33,7 +33,6 @@ class PostDaoTest {
 
     @Before
     fun createDb() {
-
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(
             context, AppDatabase::class.java
@@ -51,7 +50,7 @@ class PostDaoTest {
     @Throws(Exception::class)
     fun insertPosts() = runBlocking {
         postDao.savePosts(posts)
-        val posts = postDao.getAllDogs().first()
+        val posts = postDao.getAllPosts().first()
         assertEquals(posts[0].title, posts[0].title)
     }
 
@@ -68,7 +67,7 @@ class PostDaoTest {
     fun addPostToFavorites() = runBlocking {
         postDao.savePosts(posts)
         postDao.addPostToFavorites(1)
-        val comments = postDao.getAllDogs().first()
+        val comments = postDao.getAllPosts().first()
         assertEquals(true, comments[0].isFavorite)
     }
 
@@ -76,8 +75,8 @@ class PostDaoTest {
     @Throws(Exception::class)
     fun removedPostToFavorites() = runBlocking {
         postDao.savePosts(posts)
-        postDao.remotePostFromFavorites(1)
-        val comments = postDao.getAllDogs().first()
+        postDao.removePostFromFavorites(1)
+        val comments = postDao.getAllPosts().first()
         assertEquals(false, comments[0].isFavorite)
     }
 
@@ -86,7 +85,7 @@ class PostDaoTest {
     fun deletePostById() = runBlocking {
         postDao.savePosts(posts)
         postDao.deletePostById(1)
-        val comments = postDao.getAllDogs().first()
+        val comments = postDao.getAllPosts().first()
         assertEquals(0, comments.size)
     }
 
@@ -95,7 +94,7 @@ class PostDaoTest {
     fun deleteAllPost() = runBlocking {
         postDao.savePosts(posts)
         postDao.deleteAllPosts()
-        val comments = postDao.getAllDogs().first()
+        val comments = postDao.getAllPosts().first()
         assertEquals(0, comments.size)
     }
 }
