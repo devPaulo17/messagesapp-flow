@@ -32,7 +32,18 @@ class PostsActivity : AppCompatActivity() {
         setUpToolbar()
         searchResultsObserver()
         setUpRecyclerView()
+        setSwipeRefreshLayout()
         postsViewModel.getAllPosts()
+    }
+
+    private fun setSwipeRefreshLayout() {
+
+        binding?.apply {
+            swipeToRefresh.setOnRefreshListener {
+                postsViewModel.getAllPosts(true)
+                swipeToRefresh.isRefreshing = false
+            }
+        }
     }
 
     private fun setUpToolbar() {
