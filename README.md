@@ -22,11 +22,14 @@ Go to the [Releases](https://github.com/devPaulo17/weatherapp/releases) to downl
   - DataBinding - Binds UI components in your layouts to data sources in your app using a declarative format rather than programmatically.
 - Testing
   - [Mockito](https://site.mockito.org) Tasty mocking framework for unit tests in Java
-  - [Espresso](https://developer.android.com/training/testing/espresso) Use Espresso to write concise, beautiful, and reliable Android UI tests.
+  - [Espresso](https://developer.android.com/training/testing/espresso) Use Espresso to write concise, beautiful, and reliable Android UI tests. To run UI test you should put it off this option from developer menu.
+  - <img width="200" alt="Screenshot 2022-05-06 at 1 19 10" src="https://user-images.githubusercontent.com/36678251/167078256-448621bd-fa20-43c9-ae70-c81796f39142.png">
+
   - [CoroutinesTest](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-test/) Unit test with coroutines
 - Architecture
   - MVVM Architecture (View - DataBinding - ViewModel - Model)
   - Repository Pattern
+- [Swipe-to-Refresh](https://developer.android.com/training/swipe/add-swipe-interface) - The swipe-to-refresh user interface pattern. Which detects the vertical swipe, displays a distinctive progress bar, and triggers callback methods in your app
 - [Retrofit2 & OkHttp3](https://github.com/square/retrofit) - Construct the REST APIs.
 - [TransformationLayout](https://github.com/skydoves/transformationlayout) - implementing transformation motion animations.
 - [Material-Components](https://github.com/material-components/material-components-android) - Material design components for building ripple animation, and CardView.
