@@ -1,4 +1,4 @@
-<h1 align="center">PostApp</h1>
+<h1 align="center">PostsApp</h1>
 
 <p align="center">
   <a href="https://devlibrary.withgoogle.com/products/android/repos/skydoves-pokedex"><img alt="Google" src="https://skydoves.github.io/badges/google-devlib.svg"/></a><br>
