@@ -10,112 +10,112 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_user_data"
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
-    <TextView
-        android:id="@+id/text_view_description_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="Description"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/constraint_user_data"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        <TextView
+            android:id="@+id/text_view_description_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:text="@string/description"
+            android:textSize="@dimen/textSize_20sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/constraint_user_data"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintTop_creator="1" />
 
-    <TextView
-        android:id="@+id/text_view_post_description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Description value"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_description_label" />
+        <TextView
+            android:id="@+id/text_view_post_description"
+            android:layout_width="@dimen/layout_width_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_marginStart_16dp"
+            android:layout_marginTop="@dimen/layout_marginTop_16dp"
+            android:layout_marginEnd="@dimen/layout_marginEnd_16dp"
+            android:textSize="@dimen/textSize_16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_description_label"
+            tools:text="Description value" />
 
-    <TextView
-        android:id="@+id/text_view_user_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="50dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="User"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_post_description" />
+        <TextView
+            android:id="@+id/text_view_user_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_marginStart_16dp"
+            android:layout_marginTop="@dimen/layout_marginTop_50dp"
+            android:textSize="@dimen/textSize_20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_post_description"
+            android:text="@string/user" />
 
-    <TextView
-        android:id="@+id/text_view_user_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Name"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_user_label" />
+        <TextView
+            android:id="@+id/text_view_user_name"
+            android:layout_width="@dimen/layout_width_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_marginStart_16dp"
+            android:layout_marginTop="@dimen/layout_marginTop_16dp"
+            android:layout_marginEnd="@dimen/layout_marginEnd_16dp"
+            android:textSize="@dimen/textSize_16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_user_label"
+            tools:text="Name" />
 
-    <TextView
-        android:id="@+id/text_view_user_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Email"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_user_name" />
+        <TextView
+            android:id="@+id/text_view_user_email"
+            android:layout_width="@dimen/layout_width_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_marginStart_16dp"
+            android:layout_marginTop="@dimen/layout_marginTop_16dp"
+            android:layout_marginEnd="@dimen/layout_marginEnd_16dp"
+            android:textSize="@dimen/textSize_16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_user_name"
+            tools:text="Email" />
 
 
-    <TextView
-        android:id="@+id/text_view_user_nickname"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Nickname"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_user_email" />
+        <TextView
+            android:id="@+id/text_view_user_nickname"
+            android:layout_width="@dimen/layout_width_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_marginStart_16dp"
+            android:layout_marginTop="@dimen/layout_marginTop_16dp"
+            android:layout_marginEnd="@dimen/layout_marginEnd_16dp"
+            android:textSize="@dimen/textSize_16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_user_email"
+            tools:text="Nickname" />
 
-    <TextView
-        android:id="@+id/text_view_user_website"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="WebSite"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_user_nickname" />
+        <TextView
+            android:id="@+id/text_view_user_website"
+            android:layout_width="@dimen/layout_width_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_marginStart_16dp"
+            android:layout_marginTop="@dimen/layout_marginTop_16dp"
+            android:layout_marginEnd="@dimen/layout_marginEnd_16dp"
+            android:textSize="@dimen/textSize_16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_user_nickname"
+            tools:text="WebSite" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_post_comments"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/layout_width_0dp"
+        android:layout_height="@dimen/layout_height_0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

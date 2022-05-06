@@ -48,8 +48,8 @@ class PostDetailActivity : AppCompatActivity() {
     }
 
     private fun setActionButtonFab() {
-        fab = binding.fab
-        fab2 = binding.fab2
+        fab = binding.fabButtonAddFavorite
+        fab2 = binding.fabButtonRemoveFavorite
 
         if (!isFavorite) {
             removeFromFavorites(postId)

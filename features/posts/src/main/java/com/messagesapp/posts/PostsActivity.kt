@@ -57,7 +57,7 @@ class PostsActivity : AppCompatActivity() {
 
     private fun showLoadingState() {
         binding?.apply {
-            progressBarPostList?.visibility = View.VISIBLE
+            progressBarPostList.visibility = View.VISIBLE
             imageEmptySate.visibility = View.GONE
             textViewEmptyStateLabel.visibility = View.GONE
         }
@@ -65,14 +65,14 @@ class PostsActivity : AppCompatActivity() {
 
     private fun showEmptyState() {
         binding?.apply {
-            recylerViewPosts.visibility = View.GONE
+            recyclerPost.visibility = View.GONE
             imageEmptySate.visibility = View.VISIBLE
             textViewEmptyStateLabel.visibility = View.VISIBLE
         }
     }
 
     private fun setUpRecyclerView() {
-        binding?.recylerViewPosts?.apply {
+        binding?.recyclerPost?.apply {
             adapter = searchResultsListAdapter
             itemAnimator = null
             layoutManager = LinearLayoutManager(context)
@@ -83,7 +83,7 @@ class PostsActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     private fun setSearchData(data: List<Posts>) {
         binding?.apply {
-            recylerViewPosts.visibility = View.VISIBLE
+            recyclerPost.visibility = View.VISIBLE
             imageEmptySate.visibility = View.GONE
             textViewEmptyStateLabel.visibility = View.GONE
             progressBarPostList.visibility = View.GONE
@@ -101,7 +101,7 @@ class PostsActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_posts_list, menu);
+        menuInflater.inflate(R.menu.menu_posts_list, menu)
         return true
     }
 

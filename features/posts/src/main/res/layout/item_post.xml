@@ -4,38 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container_item_post"
     android:layout_width="match_parent"
-    android:layout_height="80dp">
+    android:layout_height="@dimen/layout_height_80dp">
 
     <ImageView
         android:id="@+id/image_favorite_star"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="@dimen/layout_marginStart_16dp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/view_line_separator_post"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_round_star_yellow_24" />
-
+        app:srcCompat="@drawable/ic_round_star_yellow_24"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/text_view_post_title"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/layout_width_0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        android:textSize="20sp"
+        android:layout_marginStart="@dimen/layout_marginStart_8dp"
+        android:layout_marginEnd="@dimen/layout_marginEnd_16dp"
+        android:textSize="@dimen/textSize_20sp"
         app:layout_constraintBottom_toTopOf="@+id/view_line_separator_post"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_favorite_star"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Post Title" />
 
     <View
         android:id="@+id/view_line_separator_post"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#A6A4A4"
+        android:layout_height="@dimen/layout_height_1dp"
+        android:background="@color/divider_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

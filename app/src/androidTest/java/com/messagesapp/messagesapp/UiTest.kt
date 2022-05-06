@@ -29,7 +29,7 @@ class UiTest {
     fun clickPostItemList() {
 
         Thread.sleep(5000)
-        onView(withId(recylerView_posts))
+        onView(withId(recycler_post))
             .perform(
                 actionOnItemAtPosition<PostListViewHolder>(
                     0,
@@ -41,7 +41,7 @@ class UiTest {
     @Test
     fun flowPostFavorites(){
         Thread.sleep(1000)
-        onView(withId(recylerView_posts))
+        onView(withId(recycler_post))
             .perform(
                 actionOnItemAtPosition<PostListViewHolder>(
                     0,
@@ -51,7 +51,7 @@ class UiTest {
         onView(withId(fab)).perform(click())
         Thread.sleep(2000)
         pressBack()
-        onView(withId(recylerView_posts))
+        onView(withId(recycler_post))
             .perform(
                 actionOnItemAtPosition<PostListViewHolder>(
                     0,
@@ -66,7 +66,7 @@ class UiTest {
     @Test
     fun flowToDeletePost(){
         Thread.sleep(2000)
-        onView(withId(recylerView_posts))
+        onView(withId(recycler_post))
             .perform(
                 actionOnItemAtPosition<PostListViewHolder>(
                     0,

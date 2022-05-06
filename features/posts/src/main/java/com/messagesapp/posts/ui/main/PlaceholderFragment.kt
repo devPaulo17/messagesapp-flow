@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -37,7 +36,7 @@ class PlaceholderFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View{
 
         _binding = FragmentPostDetailBinding.inflate(inflater, container, false)
         val root = binding.root
@@ -84,9 +83,6 @@ class PlaceholderFragment : Fragment() {
             is PostsUiState.Ids -> {
                 postsViewModel.getPostDetail(state.data["userId"]!!)
                 postsViewModel.getComments(state.data["postId"]!!)
-            }
-            else -> {
-                Toast.makeText(context,"Hubo un error",Toast.LENGTH_SHORT).show()
             }
         }
     }

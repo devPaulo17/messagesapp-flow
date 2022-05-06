@@ -7,40 +7,40 @@
 
     <TextView
         android:id="@+id/text_view_comment_body"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/layout_width_0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        android:textSize="20sp"
+        android:layout_marginStart="@dimen/layout_marginStart_16dp"
+        android:layout_marginTop="@dimen/layout_marginTop_16dp"
+        android:layout_marginEnd="@dimen/layout_marginEnd_16dp"
+        android:textSize="@dimen/textSize_20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Comment Title" />
 
     <View
         android:id="@+id/view_line_separator_post"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#A6A4A4"
+        android:layout_height="@dimen/layout_height_1dp"
+        android:background="@color/divider_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/text_view_user_email_comment"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/layout_width_0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="12dp"
-        android:text="TextView"
-        android:textSize="12sp"
+        android:layout_marginStart="@dimen/layout_marginStart_16dp"
+        android:layout_marginTop="@dimen/layout_marginTop_8dp"
+        android:layout_marginEnd="@dimen/layout_marginEnd_16dp"
+        android:layout_marginBottom="@dimen/layout_marginBottom_12dp"
+        android:textSize="@dimen/textSize_12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/view_line_separator_post"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_comment_body" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_comment_body"
+        tools:text="Email" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

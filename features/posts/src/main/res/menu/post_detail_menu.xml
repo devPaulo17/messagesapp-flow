@@ -6,8 +6,8 @@
 
     <item
         android:id="@+id/action_favorite"
-        android:icon="@drawable/ic_round_delete_24"
-        android:orderInCategory="@dimen/orderInCategory_300dp"
+        android:orderInCategory="300"
         android:title="@string/delete_label"
+        android:icon="@drawable/ic_round_delete_24"
         app:showAsAction="ifRoom" />
 </menu>

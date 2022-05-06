@@ -3,4 +3,7 @@
     <string name="tab_text_1">Information</string>
     <string name="tab_text_2">Comments</string>
     <string name="delete_label">Eliminar</string>
+    <string name="not_found">No data</string>
+    <string name="description">Description</string>
+    <string name="user">User</string>
 </resources>
