@@ -10,7 +10,7 @@
 </br>
 
 ## Download
-Go to the [Releases](https://github.com/devPaulo17/weatherapp/releases) to download the latest APK.
+Go to the [Releases](https://github.com/devPaulo17/messagesapp-flow/releases) to download the latest APK.
 
 ## Tech stack & Open-source libraries
 - Minimum SDK level 21
