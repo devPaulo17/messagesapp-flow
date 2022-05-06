@@ -14,7 +14,7 @@ Go to the [Releases](https://github.com/devPaulo17/weatherapp/releases) to downl
 
 ## Tech stack & Open-source libraries
 - Minimum SDK level 21
-- [Kotlin](https://kotlinlang.org/) based, [Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
+- [Kotlin](https://kotlinlang.org/) based, [Coroutines](https://github.com/Kotlin/kotlinx.coroutines)  + [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/) for asynchronous.
 - [Koin](https://insert-koin.io) for dependency injection.
 - Jetpack
   - Lifecycle - Observe Android lifecycles and handle UI states upon the lifecycle changes.
@@ -34,6 +34,10 @@ Go to the [Releases](https://github.com/devPaulo17/weatherapp/releases) to downl
 ## MAD Score
 ![summary](https://user-images.githubusercontent.com/24237865/102366914-84f6b000-3ffc-11eb-8d49-b20694239782.png)
 ![kotlin](https://user-images.githubusercontent.com/24237865/102366932-8a53fa80-3ffc-11eb-8131-fd6745a6f079.png)
+
+## Asynchronous flow
+![mvvm_architecture](https://user-images.githubusercontent.com/36678251/167052898-b4072d58-1e82-4334-b0ad-b732caf55770.png)
+
 
 ## Architecture
 WeatherApp is based on the MVVM architecture and the Repository pattern.
