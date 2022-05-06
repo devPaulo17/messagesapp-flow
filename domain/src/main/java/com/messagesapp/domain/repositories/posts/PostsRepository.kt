@@ -8,10 +8,10 @@ import kotlinx.coroutines.flow.Flow
 
 interface PostsRepository {
 
-    suspend fun getAllPosts(): Flow<HandleResult<List<Posts>>>
+    suspend fun getAllPosts(forceUpdate: Boolean): Flow<HandleResult<List<Posts>>>
     suspend fun getPostDetail(postId: Int): Flow<HandleResult<UserPost>>
     suspend fun getComments(postId: Int): Flow<HandleResult<List<Comments>>>
-    suspend fun deleteAllPosts()
+    suspend fun deleteAllPosts(needUpdate: Boolean)
     suspend fun deletePostById(postId: Int)
     suspend fun addPostToFavorites(postId: Int)
     suspend fun remotePostFromFavorites(postId: Int)

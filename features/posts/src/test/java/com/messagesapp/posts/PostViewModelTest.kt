@@ -9,7 +9,6 @@ import com.messagesapp.domain.entities.posts.UserPost
 import com.messagesapp.domain.repositories.posts.PostsRepository
 import com.messagesapp.posts.uistates.PostsUiState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import org.junit.Rule
@@ -40,7 +39,7 @@ class PostViewModelTest {
 
 
     private val mockResultsRepository = mock<PostsRepository> {
-        onBlocking { getAllPosts() } doReturn flow { emit(HandleResult.Success(posts)) }
+        onBlocking { getAllPosts(needUpdate) } doReturn flow { emit(HandleResult.Success(posts)) }
         onBlocking { getComments(1) } doReturn flow { emit(HandleResult.Success(comments)) }
         onBlocking { getPostDetail(1) } doReturn flow { emit(HandleResult.Success(postDetailData)) }
     }
@@ -53,7 +52,7 @@ class PostViewModelTest {
         val spyLiveData: Observer<PostsUiState> = spy(Observer { })
         viewModel.viewState.observeForever(spyLiveData)
         runBlocking {
-            viewModel.getAllPosts()
+            viewModel.getAllPosts(true)
             assertTrue(viewModel.viewState.value is PostsUiState.PostsList)
         }
     }

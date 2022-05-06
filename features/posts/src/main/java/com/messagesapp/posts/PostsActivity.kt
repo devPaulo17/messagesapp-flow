@@ -3,6 +3,10 @@ package com.messagesapp.posts
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.messagesapp.domain.entities.posts.Posts
 import com.messagesapp.posts.adapters.PostsListAdapter
@@ -16,8 +20,8 @@ class PostsActivity : AppCompatActivity() {
 
     private val postsViewModel: PostsViewModel by viewModel()
 
-    private val onResultItemClick: (Int,Boolean) -> Unit = { postId,isfavorito ->
-        goToPostDetail(postId,isfavorito)
+    private val onResultItemClick: (Int, Boolean) -> Unit = { postId, isfavorito ->
+        goToPostDetail(postId, isfavorito)
     }
 
     private var searchResultsListAdapter = PostsListAdapter(onResultItemClick)
@@ -46,9 +50,18 @@ class PostsActivity : AppCompatActivity() {
     private fun handleUiState(state: PostsUiState) {
         when (state) {
             is PostsUiState.PostsList -> setSearchData(state.data)
+            is PostsUiState.Error -> showEmptyState()
             else -> {
                 println("sdasd")
             }
+        }
+    }
+
+    private fun showEmptyState() {
+        binding?.apply {
+            recylerViewPosts.visibility = View.GONE
+            imageEmptySate.visibility = View.VISIBLE
+            textViewEmptyStateLabel.visibility = View.VISIBLE
         }
     }
 
@@ -63,6 +76,11 @@ class PostsActivity : AppCompatActivity() {
 
 
     private fun setSearchData(data: List<Posts>) {
+        binding?.apply {
+            recylerViewPosts.visibility = View.VISIBLE
+            imageEmptySate.visibility = View.GONE
+            textViewEmptyStateLabel.visibility = View.GONE
+        }
         searchResultsListAdapter.setPostsList(data)
         searchResultsListAdapter.notifyDataSetChanged()
     }
@@ -72,6 +90,21 @@ class PostsActivity : AppCompatActivity() {
             putExtra("postId", postId)
             putExtra("isFavorite", isfavorito)
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_posts_list, menu);
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.refresh -> postsViewModel.getAllPosts(true)
+            R.id.deleteAll -> postsViewModel.deleteAllPosts(true)
+
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 

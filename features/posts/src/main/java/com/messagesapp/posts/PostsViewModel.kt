@@ -17,13 +17,12 @@ class PostsViewModel(private val postsRepository: PostsRepository) : ViewModel()
     private val _viewState = MutableLiveData<PostsUiState>()
     val viewState: LiveData<PostsUiState> = _viewState
 
-    fun getAllPosts() {
+    fun getAllPosts(forceUpdate: Boolean = false) {
         viewModelScope.launch {
-            postsRepository.getAllPosts().collectLatest {
+            postsRepository.getAllPosts(forceUpdate).collectLatest {
                 when (it) {
-                    is HandleResult.Success -> {
-                        _viewState.value = PostsUiState.PostsList(it.data)
-                    }
+                    is HandleResult.Success -> _viewState.value = PostsUiState.PostsList(it.data)
+                    is HandleResult.Error-> _viewState.value = PostsUiState.Error
                 }
             }
         }
@@ -58,11 +57,9 @@ class PostsViewModel(private val postsRepository: PostsRepository) : ViewModel()
     }
 
 
-    fun deleteAllPosts() {
+    fun deleteAllPosts(needUpdate: Boolean) {
         viewModelScope.launch {
-            postsRepository.deleteAllPosts()
-
-
+            postsRepository.deleteAllPosts(needUpdate)
         }
     }
 

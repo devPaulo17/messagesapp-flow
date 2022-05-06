@@ -17,19 +17,24 @@ class PostsRepositoryImpl(
     private val localDataSource: LocalPostsDataSource
 ) : PostsRepository {
 
+    private var isFromDeleteAction: Boolean = false
 
-    override suspend fun getAllPosts(): Flow<HandleResult<List<Posts>>> = flow {
+    override suspend fun getAllPosts(forceUpdate: Boolean): Flow<HandleResult<List<Posts>>> = flow {
 
-        localDataSource.getAllPosts().collect {
-            if (it.isNotEmpty()) {
-                emit(HandleResult.Success(it))
-            } else {
-                hola()
+        if (forceUpdate) {
+            hola()
+        } else {
+            localDataSource.getAllPosts().collect {
+                if (it.isNotEmpty()) {
+                    emit(HandleResult.Success(it))
+                } else if (!isFromDeleteAction) {
+                    hola()
+                } else {
+                    emit(HandleResult.Error(""))
+                }
             }
-
         }
     }.flowOn(Dispatchers.IO)
-
 
     private suspend fun hola() {
         withContext(Dispatchers.IO) {
@@ -68,8 +73,9 @@ class PostsRepositoryImpl(
     }
 
 
-    override suspend fun deleteAllPosts() {
+    override suspend fun deleteAllPosts(forceUpdate: Boolean) {
         withContext(Dispatchers.IO) {
+            isFromDeleteAction = forceUpdate
             localDataSource.deleteAllPosts()
         }
     }
