@@ -6,8 +6,7 @@
         <activity
             android:name=".PostDetailActivity"
             android:exported="false"
-            android:label="@string/title_activity_post_detail"
-            android:theme="@style/Theme.Messagesapp.NoActionBar" />
+            android:label="@string/title_activity_post_detail" />
         <activity
             android:name=".PostsActivity"
             android:exported="false"

@@ -39,7 +39,7 @@ class UiTest {
     }
 
     @Test
-    fun flowPostFavorites(){
+    fun flowPostFavorites() {
         Thread.sleep(1000)
         onView(withId(recycler_post))
             .perform(
@@ -48,7 +48,7 @@ class UiTest {
                     ViewActions.click()
                 )
             )
-        onView(withId(fab)).perform(click())
+        onView(withId(fab_button_add_favorite)).perform(click())
         Thread.sleep(2000)
         pressBack()
         onView(withId(recycler_post))
@@ -58,13 +58,13 @@ class UiTest {
                     ViewActions.click()
                 )
             )
-        onView(withId(fab2)).perform(click())
+        onView(withId(fab_button_remove_favorite)).perform(click())
         Thread.sleep(2000)
         pressBack()
     }
 
     @Test
-    fun flowToDeletePost(){
+    fun flowToDeletePost() {
         Thread.sleep(2000)
         onView(withId(recycler_post))
             .perform(

@@ -52,7 +52,7 @@ class PostViewModelTest {
         val spyLiveData: Observer<PostsUiState> = spy(Observer { })
         viewModel.viewState.observeForever(spyLiveData)
         runBlocking {
-            viewModel.getAllPosts(true)
+            viewModel.getAllPosts(false)
             assertTrue(viewModel.viewState.value is PostsUiState.PostsList)
         }
     }

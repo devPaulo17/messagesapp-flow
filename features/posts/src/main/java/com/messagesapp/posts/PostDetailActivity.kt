@@ -61,6 +61,7 @@ class PostDetailActivity : AppCompatActivity() {
     private fun setUpToolbar() {
         setSupportActionBar(binding?.toolbar)
         supportActionBar?.title = getString(R.string.post_detail_title)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun setPagerAdapter() {
@@ -100,15 +101,17 @@ class PostDetailActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
 
-        if (id == R.id.action_favorite) {
-            postsViewModel.deletePostById(postId)
-            Toast.makeText(this, getString(R.string.post_deteleted_label), Toast.LENGTH_LONG)
-                .show();
-            finish()
-            return true
+        when(item.itemId){
+            R.id.action_favorite ->{
+                postsViewModel.deletePostById(postId)
+                Toast.makeText(this, getString(R.string.post_deteleted_label), Toast.LENGTH_LONG)
+                    .show()
+                finish()
+            }
+            android.R.id.home -> onBackPressed()
         }
+
         return super.onOptionsItemSelected(item)
     }
 }
