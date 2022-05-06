@@ -5,7 +5,6 @@ import com.messagesapp.domain.entities.posts.Comments
 import com.messagesapp.domain.entities.posts.Posts
 import com.messagesapp.domain.entities.posts.Users
 
-
 interface RemotePostsDataSource {
     suspend fun getAllPosts(): HandleResult<List<Posts>>
     suspend fun getCommentsByPostId(postId: Int): HandleResult<List<Comments>>

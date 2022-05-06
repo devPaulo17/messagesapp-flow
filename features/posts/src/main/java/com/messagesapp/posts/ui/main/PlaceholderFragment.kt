@@ -11,7 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.messagesapp.domain.entities.posts.Comments
 import com.messagesapp.domain.entities.posts.UserPost
+import com.messagesapp.posts.POST_ID
 import com.messagesapp.posts.PostsViewModel
+import com.messagesapp.posts.USER_ID
 import com.messagesapp.posts.adapters.CommentsListAdapter
 import com.messagesapp.posts.databinding.FragmentPostDetailBinding
 import com.messagesapp.posts.uistates.PostsUiState
@@ -81,8 +83,8 @@ class PlaceholderFragment : Fragment() {
             is PostsUiState.PostDetail -> setSearchData(state.data)
             is PostsUiState.PostComments -> setPostComments(state.data)
             is PostsUiState.Ids -> {
-                postsViewModel.getPostDetail(state.data["userId"]!!)
-                postsViewModel.getComments(state.data["postId"]!!)
+                postsViewModel.getPostDetail(state.data[USER_ID]!!)
+                postsViewModel.getComments(state.data[POST_ID]!!)
             }
         }
     }

@@ -12,6 +12,9 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+const val GET_POSTS_AND_USERS = "postAndUsers"
+const val GET_COMMENTS = "comments"
+
 class PostsRepositoryImpl(
     private val remoteDataSource: RemotePostsDataSource,
     private val localDataSource: LocalPostsDataSource
@@ -22,32 +25,20 @@ class PostsRepositoryImpl(
     override suspend fun getAllPosts(forceUpdate: Boolean): Flow<HandleResult<List<Posts>>> = flow {
 
         if (forceUpdate) {
-            hola()
+            getRemoteData(GET_POSTS_AND_USERS)
         } else {
             localDataSource.getAllPosts().collect {
                 if (it.isNotEmpty()) {
                     emit(HandleResult.Success(it))
                 } else if (!isFromDeleteAction) {
-                    hola()
+                    getRemoteData(GET_POSTS_AND_USERS)
                 } else {
                     emit(HandleResult.Error(""))
                 }
             }
         }
-    }.flowOn(Dispatchers.IO)
 
-    private suspend fun hola() {
-        withContext(Dispatchers.IO) {
-            launch {
-                val result = remoteDataSource.getAllUsers()
-                saveUsersData(validateResponse(result))
-            }
-            launch {
-                val result = remoteDataSource.getAllPosts()
-                savePostsData(validateResponse(result))
-            }
-        }
-    }
+    }.flowOn(Dispatchers.IO)
 
     override suspend fun getPostDetail(postId: Int): Flow<HandleResult<UserPost>> = flow {
         localDataSource.getPostDetail(postId).collect {
@@ -60,18 +51,10 @@ class PostsRepositoryImpl(
             if (it.isNotEmpty()) {
                 emit(HandleResult.Success(it))
             } else {
-                hola1(postId)
+                getRemoteData(GET_COMMENTS, postId)
             }
         }
     }.flowOn(Dispatchers.IO)
-
-    private suspend fun hola1(postId: Int) {
-        withContext(Dispatchers.IO) {
-            val result = remoteDataSource.getCommentsByPostId(postId)
-            localDataSource.saveCommentsByPostId(validateResponse(result) as List<Comments>)
-        }
-    }
-
 
     override suspend fun deleteAllPosts(forceUpdate: Boolean) {
         withContext(Dispatchers.IO) {
@@ -98,29 +81,64 @@ class PostsRepositoryImpl(
         }
     }
 
-    private suspend fun saveUsersData(data: List<Any>) {
-        localDataSource.saveAllUsers(data as List<Users>)
-    }
+    private suspend fun getRemoteData(action: String, postId: Int = 0) {
+        withContext(Dispatchers.IO) {
 
-    private suspend fun savePostsData(data: List<Any>) {
-        localDataSource.saveAllPost(data as List<Posts>)
-    }
-
-    private suspend fun saveCommentsData(data: List<Any>) {
-        localDataSource.saveCommentsByPostId(data as List<Comments>)
-    }
-
-    private fun validateResponse(result: HandleResult<List<Any>>): List<Any> {
-
-        return when (result) {
-            is HandleResult.Success -> {
-                result.data
-            }
-            else -> {
-                listOf()
+            when (action) {
+                GET_POSTS_AND_USERS -> {
+                    launch {
+                        getPosts()
+                    }
+                    launch {
+                        getUsers()
+                    }
+                }
+                GET_COMMENTS -> {
+                    launch {
+                        getCommentsByPostId(postId)
+                    }
+                }
+                else -> {}
             }
         }
-
     }
 
+    private suspend fun getUsers() {
+        when (val result = remoteDataSource.getAllUsers()) {
+            is HandleResult.Success -> {
+                saveUsersData(result.data)
+            }
+            else -> {}
+        }
+    }
+
+    private suspend fun getPosts() {
+        when (val result = remoteDataSource.getAllPosts()) {
+            is HandleResult.Success -> {
+                savePostsData(result.data)
+            }
+            else -> {}
+        }
+    }
+
+    private suspend fun getCommentsByPostId(postId: Int) {
+        when (val result = remoteDataSource.getCommentsByPostId(postId)) {
+            is HandleResult.Success -> {
+                saveCommentsData(result.data)
+            }
+            else -> {}
+        }
+    }
+
+    private suspend fun saveUsersData(users: List<Users>) {
+        localDataSource.saveAllUsers(users)
+    }
+
+    private suspend fun savePostsData(data: List<Posts>) {
+        localDataSource.saveAllPost(data)
+    }
+
+    private suspend fun saveCommentsData(data: List<Comments>) {
+        localDataSource.saveCommentsByPostId(data)
+    }
 }

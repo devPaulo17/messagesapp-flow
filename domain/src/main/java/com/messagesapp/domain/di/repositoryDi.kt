@@ -6,7 +6,6 @@ import org.koin.dsl.module
 
 val repositoryDi = module {
 
-
     factory<PostsRepository> {
         PostsRepositoryImpl(get(),get())
     }

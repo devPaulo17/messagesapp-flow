@@ -55,9 +55,9 @@ class PostsViewModel(private val postsRepository: PostsRepository) : ViewModel()
         }
     }
 
-    fun deleteAllPosts(needUpdate: Boolean) {
+    fun deleteAllPosts(forceUpdate: Boolean) {
         viewModelScope.launch {
-            postsRepository.deleteAllPosts(needUpdate)
+            postsRepository.deleteAllPosts(forceUpdate)
         }
     }
 

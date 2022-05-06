@@ -20,8 +20,8 @@ class PostDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPostDetailBinding
     private lateinit var fab: FloatingActionButton
     private lateinit var fab2: FloatingActionButton
-    private var postId = 0
-    private var userId = 0
+    private var postId = DEFAULT_VALUE
+    private var userId = DEFAULT_VALUE
     private var isFavorite = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,14 +37,14 @@ class PostDetailActivity : AppCompatActivity() {
     }
 
     private fun getIntentExtras() {
-        postId = intent.getIntExtra("postId", 0)
-        isFavorite = intent.getBooleanExtra("isFavorite", false)
-        userId = intent.getIntExtra("userId", 0)
+        postId = intent.getIntExtra(POST_ID, DEFAULT_VALUE)
+        isFavorite = intent.getBooleanExtra(IS_FAVORITE, false)
+        userId = intent.getIntExtra(USER_ID, DEFAULT_VALUE)
     }
 
     private fun setIdsPostAndUser() {
-        val hashMap = hashMapOf("userId" to userId, "postId" to postId)
-        postsViewModel.setIdsPostAndUser(hashMap)
+        val hashMapIds = hashMapOf(USER_ID to userId, POST_ID to postId)
+        postsViewModel.setIdsPostAndUser(hashMapIds)
     }
 
     private fun setActionButtonFab() {
@@ -60,7 +60,7 @@ class PostDetailActivity : AppCompatActivity() {
 
     private fun setUpToolbar() {
         setSupportActionBar(binding?.toolbar)
-        supportActionBar?.title = "Posts"
+        supportActionBar?.title = getString(R.string.post_detail_title)
     }
 
     private fun setPagerAdapter() {
@@ -77,8 +77,7 @@ class PostDetailActivity : AppCompatActivity() {
             postsViewModel.deletePostFromFavorites(postId)
             fab2.visibility = View.GONE
             fab.visibility = View.VISIBLE
-            Snackbar.make(view, "Post removed from favorites", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            Snackbar.make(view, getString(R.string.post_removed_label), Snackbar.LENGTH_LONG).show()
             removeFromFavorites(postId)
         }
     }
@@ -89,8 +88,8 @@ class PostDetailActivity : AppCompatActivity() {
             postsViewModel.addPostToFavorites(postId)
             fab2.visibility = View.VISIBLE
             fab.visibility = View.GONE
-            Snackbar.make(view, "Post save as favorite", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            Snackbar.make(view, getString(R.string.post_add_favorites_label), Snackbar.LENGTH_LONG)
+                .show()
             addToFavorites(postId)
         }
     }
@@ -105,7 +104,8 @@ class PostDetailActivity : AppCompatActivity() {
 
         if (id == R.id.action_favorite) {
             postsViewModel.deletePostById(postId)
-            Toast.makeText(this, "Post deleted", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.post_deteleted_label), Toast.LENGTH_LONG)
+                .show();
             finish()
             return true
         }

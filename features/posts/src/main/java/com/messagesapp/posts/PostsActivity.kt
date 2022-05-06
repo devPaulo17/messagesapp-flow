@@ -37,7 +37,7 @@ class PostsActivity : AppCompatActivity() {
 
     private fun setUpToolbar() {
         setSupportActionBar(binding?.toolbar)
-        supportActionBar?.title = "Posts"
+        supportActionBar?.title = getString(R.string.posts_title)
     }
 
     private fun searchResultsObserver() {
@@ -50,7 +50,7 @@ class PostsActivity : AppCompatActivity() {
             is PostsUiState.Error -> showEmptyState()
             is PostsUiState.Loading -> showLoadingState()
             else -> {
-                Toast.makeText(this, "Hubo un error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.message_error), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -94,9 +94,9 @@ class PostsActivity : AppCompatActivity() {
 
     private fun goToPostDetail(postId: Int, isfavorite: Boolean, userId: Int) {
         startActivity(Intent(this, PostDetailActivity::class.java).apply {
-            putExtra("postId", postId)
-            putExtra("isFavorite", isfavorite)
-            putExtra("userId", userId)
+            putExtra(POST_ID, postId)
+            putExtra(IS_FAVORITE, isfavorite)
+            putExtra(USER_ID, userId)
         })
     }
 

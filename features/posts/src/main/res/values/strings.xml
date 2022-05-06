@@ -6,4 +6,10 @@
     <string name="not_found">No data</string>
     <string name="description">Description</string>
     <string name="user">User</string>
+    <string name="posts_title">Posts</string>
+    <string name="message_error">Hubo un error</string>
+    <string name="post_detail_title">Post detail</string>
+    <string name="post_removed_label">Post removed from favorites</string>
+    <string name="post_add_favorites_label">Post save as favorite</string>
+    <string name="post_deteleted_label">Post deleted</string>
 </resources>
