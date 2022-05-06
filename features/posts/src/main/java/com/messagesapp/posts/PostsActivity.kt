@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.messagesapp.domain.entities.posts.Posts
 import com.messagesapp.posts.adapters.PostsListAdapter
@@ -20,8 +19,8 @@ class PostsActivity : AppCompatActivity() {
 
     private val postsViewModel: PostsViewModel by viewModel()
 
-    private val onResultItemClick: (Int, Boolean) -> Unit = { postId, isfavorito ->
-        goToPostDetail(postId, isfavorito)
+    private val onResultItemClick: (Int, Boolean,Int) -> Unit = { postId, isfavorito, userId ->
+        goToPostDetail(postId, isfavorito,userId)
     }
 
     private var searchResultsListAdapter = PostsListAdapter(onResultItemClick)
@@ -51,9 +50,18 @@ class PostsActivity : AppCompatActivity() {
         when (state) {
             is PostsUiState.PostsList -> setSearchData(state.data)
             is PostsUiState.Error -> showEmptyState()
+            is PostsUiState.Loading -> showLoadingState()
             else -> {
                 println("sdasd")
             }
+        }
+    }
+
+    private fun showLoadingState() {
+        binding?.apply {
+            progressBarPostList?.visibility = View.VISIBLE
+            imageEmptySate.visibility = View.GONE
+            textViewEmptyStateLabel.visibility = View.GONE
         }
     }
 
@@ -64,7 +72,6 @@ class PostsActivity : AppCompatActivity() {
             textViewEmptyStateLabel.visibility = View.VISIBLE
         }
     }
-
 
     private fun setUpRecyclerView() {
         binding?.recylerViewPosts?.apply {
@@ -80,15 +87,17 @@ class PostsActivity : AppCompatActivity() {
             recylerViewPosts.visibility = View.VISIBLE
             imageEmptySate.visibility = View.GONE
             textViewEmptyStateLabel.visibility = View.GONE
+            progressBarPostList.visibility = View.GONE
         }
         searchResultsListAdapter.setPostsList(data)
         searchResultsListAdapter.notifyDataSetChanged()
     }
 
-    private fun goToPostDetail(postId: Int, isfavorito: Boolean) {
+    private fun goToPostDetail(postId: Int, isfavorito: Boolean, userId: Int) {
         startActivity(Intent(this, PostDetailActivity::class.java).apply {
             putExtra("postId", postId)
             putExtra("isFavorite", isfavorito)
+            putExtra("userId", userId)
         })
     }
 

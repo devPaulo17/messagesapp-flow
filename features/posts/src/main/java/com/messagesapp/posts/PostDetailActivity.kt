@@ -31,8 +31,11 @@ class PostDetailActivity : AppCompatActivity() {
         setPagerAdapter()
         postId = intent.getIntExtra("postId", 0)
         val isFavorite = intent.getBooleanExtra("isFavorite", false)
+        val userId = intent.getIntExtra("userId", 0)
 
-        postsViewModel.setPostId(postId)
+        val hashMap = hashMapOf("userId" to userId, "postId" to postId)
+
+        postsViewModel.setPostId(hashMap)
 
         fab = binding.fab
         fab2 = binding.fab2

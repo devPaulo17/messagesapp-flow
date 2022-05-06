@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.messagesapp.domain.entities.posts.Posts
 
-class PostsListAdapter(private val onResultItemClick: (Int,Boolean) -> Unit) : RecyclerView.Adapter<PostListViewHolder>() {
+class PostsListAdapter(private val onResultItemClick: (Int,Boolean,Int) -> Unit) : RecyclerView.Adapter<PostListViewHolder>() {
 
     var postsList = listOf<Posts>()
         private set

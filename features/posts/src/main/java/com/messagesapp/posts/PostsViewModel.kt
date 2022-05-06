@@ -19,6 +19,7 @@ class PostsViewModel(private val postsRepository: PostsRepository) : ViewModel()
 
     fun getAllPosts(forceUpdate: Boolean = false) {
         viewModelScope.launch {
+            _viewState.value = PostsUiState.Loading
             postsRepository.getAllPosts(forceUpdate).collectLatest {
                 when (it) {
                     is HandleResult.Success -> _viewState.value = PostsUiState.PostsList(it.data)
@@ -28,7 +29,7 @@ class PostsViewModel(private val postsRepository: PostsRepository) : ViewModel()
         }
     }
 
-    fun setPostId(postId: Int) {
+    fun setPostId(postId: HashMap<String, Int>) {
         _viewState.value = PostsUiState.PostId(postId)
     }
 

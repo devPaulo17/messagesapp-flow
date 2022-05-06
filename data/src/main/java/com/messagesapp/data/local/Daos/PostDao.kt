@@ -31,9 +31,9 @@ interface PostDao {
     @Query(
         "SELECT users.name AS userName, users.email AS userEmail, users.user_name AS userNickName,users.web_site AS userWebSite, posts.boddy AS postBoddy " +
                 "FROM users, posts " +
-                "WHERE users.id = posts.user_id"
+                "WHERE users.id = :postId"
     )
-    fun getPostDetailById(): Flow<UserPost>
+    fun getPostDetailById(postId: Int): Flow<UserPost>
 
     @Query("DELETE FROM posts")
     fun deleteAllPosts()

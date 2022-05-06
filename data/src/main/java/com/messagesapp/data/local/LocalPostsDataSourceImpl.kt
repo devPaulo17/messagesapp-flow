@@ -36,7 +36,7 @@ class LocalPostsDataSourceImpl(private val postDao: PostDao) : LocalPostsDataSou
     }
 
     override suspend fun getPostDetail(postId: Int): Flow<UserPost> {
-        return postDao.getPostDetailById().map {
+        return postDao.getPostDetailById(postId).map {
             it.toUserPostsData()
         }
     }

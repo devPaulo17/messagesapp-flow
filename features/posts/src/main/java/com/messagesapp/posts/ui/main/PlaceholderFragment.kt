@@ -63,7 +63,6 @@ class PlaceholderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         searchResultsObserver()
         setUpRecyclerView()
-
     }
 
     private fun setUpRecyclerView() {
@@ -83,8 +82,8 @@ class PlaceholderFragment : Fragment() {
             is PostsUiState.PostDetail -> setSearchData(state.data)
             is PostsUiState.PostComments -> setPostComments(state.data)
             is PostsUiState.PostId ->{
-                postsViewModel.getPostDetail(state.data)
-                postsViewModel.getComments(state.data)
+                postsViewModel.getPostDetail(state.data["userId"]!!)
+                postsViewModel.getComments(state.data["postId"]!!)
             }
             else -> {
                 println("sdasd")
